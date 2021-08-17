@@ -1,5 +1,12 @@
 # Tesla-Home-Page
 
+<p align="center">
+    <img src="/assets/1.png" width="700" />
+    <img src="/assets/2.png" width="700" />
+    <img src="/assets/3.png" width="700" />
+</p>
+
+
 Replicating the Tesla home page with Vuetify.
 
 ## Start
