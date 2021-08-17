@@ -1,5 +1,5 @@
 <template>
-  <v-container fluid class="promo">
+  <v-container fluid class="promo"> <!-- Just like bootstrap container -->
       <v-content>
           <div class="text-center" style="margin-top:13%">
               <h1 class="display-2">
