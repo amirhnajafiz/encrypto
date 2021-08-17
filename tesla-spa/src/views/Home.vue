@@ -1,8 +1,8 @@
 <template>
   <div>
     <promo />
-    <specifications></specifications>
     <interior />
+    <specifications></specifications>
     <core-features />
   </div>
 </template>
