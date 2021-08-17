@@ -1,10 +1,11 @@
 <template>
   <span>
-    <v-toolbar app color="black" dark>
+    <v-toolbar app color="black" dark> <!-- Pre defined in vuetify -->
       <v-toolbar-title>
         <v-img src="../../public/tesla.png" width="200">
         </v-img>
       </v-toolbar-title>
+      <v-spacer></v-spacer> <!-- Spacer will seperate the items in navigation bar -->
       <v-btn flat class="hidden-sm-and-down white font-weight-bold black--text">
         Specifications
       </v-btn>
