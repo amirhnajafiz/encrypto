@@ -28,8 +28,7 @@ func TestEncryptDecryptMessage(t *testing.T) {
 		t.Error(err)
 	}
 
-	flag, _ = regexp.Match(isBase64, []byte(decrypted))
-	if !flag {
-		t.Error("output is not based64")
+	if message != decrypted {
+		t.Error("output is incorrect!")
 	}
 }
