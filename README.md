@@ -1,7 +1,8 @@
 # Encrypto
 
-![]()
-![]()
+![](https://img.shields.io/badge/Language-Golang-blue)
+![](https://img.shields.io/badge/Tests-Pass-green)
+![GitHub release (with filter)](https://img.shields.io/github/v/release/amirhnajafiz/encrypto)
 
 A Golang library for encryption and decryption based on ```AES``` algorithm.
 With this library you can encrypt and decrypt your texts by using a 16 bits private key.
