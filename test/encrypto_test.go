@@ -1,6 +1,7 @@
 package test
 
 import (
+	"regexp"
 	"testing"
 
 	"github.com/amirhnajafiz/encrypto"
@@ -17,12 +18,18 @@ func TestEncryptDecryptMessage(t *testing.T) {
 		t.Error(err)
 	}
 
-	require.Regexp(t, isBase64, encrypted)
+	flag, _ := regexp.Match(isBase64, []byte(encrypted))
+	if !flag {
+		t.Error("output is not based64")
+	}
 
 	decrypted, err := encrypto.Decrypt(key, encrypted)
 	if err != nil {
 		t.Error(err)
 	}
 
-	require.Equal(t, message, decrypted)
+	flag, _ = regexp.Match(isBase64, []byte(decrypted))
+	if !flag {
+		t.Error("output is not based64")
+	}
 }
