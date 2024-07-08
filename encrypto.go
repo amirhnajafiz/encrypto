@@ -5,22 +5,22 @@ import (
 	"crypto/cipher"
 	"crypto/rand"
 	"encoding/base64"
-	"fmt"
 	"io"
 )
 
 func Encrypt(key string, message string) (string, error) {
 	byteKey := []byte(key)
 	byteMsg := []byte(message)
+
 	block, err := aes.NewCipher(byteKey)
 	if err != nil {
-		return "", fmt.Errorf("could not create new cipher: %v", err)
+		return err.Error(), ErrCipherCreation
 	}
 
 	cipherText := make([]byte, aes.BlockSize+len(byteMsg))
 	iv := cipherText[:aes.BlockSize]
 	if _, err = io.ReadFull(rand.Reader, iv); err != nil {
-		return "", fmt.Errorf("could not encrypt: %v", err)
+		return err.Error(), ErrEncryption
 	}
 
 	stream := cipher.NewCFBEncrypter(block, iv)
@@ -34,16 +34,16 @@ func Decrypt(key string, message string) (string, error) {
 
 	cipherText, err := base64.StdEncoding.DecodeString(message)
 	if err != nil {
-		return "", fmt.Errorf("could not base64 decode: %v", err)
+		return err.Error(), ErrBase64Decode
 	}
 
 	block, err := aes.NewCipher(byteKey)
 	if err != nil {
-		return "", fmt.Errorf("could not create new cipher: %v", err)
+		return err.Error(), ErrCipherCreation
 	}
 
 	if len(cipherText) < aes.BlockSize {
-		return "", fmt.Errorf("invalid ciphertext block size")
+		return "", ErrBlockSize
 	}
 
 	iv := cipherText[:aes.BlockSize]
