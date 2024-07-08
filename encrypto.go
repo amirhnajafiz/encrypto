@@ -5,22 +5,24 @@ import (
 	"crypto/cipher"
 	"crypto/rand"
 	"encoding/base64"
-	"fmt"
 	"io"
 )
 
+// Encrypt gets a `key` and `message` and returns
+// the encrypted message using AES algorithm.
 func Encrypt(key string, message string) (string, error) {
 	byteKey := []byte(key)
 	byteMsg := []byte(message)
+
 	block, err := aes.NewCipher(byteKey)
 	if err != nil {
-		return "", fmt.Errorf("could not create new cipher: %v", err)
+		return err.Error(), ErrCipherCreation
 	}
 
 	cipherText := make([]byte, aes.BlockSize+len(byteMsg))
 	iv := cipherText[:aes.BlockSize]
 	if _, err = io.ReadFull(rand.Reader, iv); err != nil {
-		return "", fmt.Errorf("could not encrypt: %v", err)
+		return err.Error(), ErrEncryption
 	}
 
 	stream := cipher.NewCFBEncrypter(block, iv)
@@ -29,21 +31,23 @@ func Encrypt(key string, message string) (string, error) {
 	return base64.StdEncoding.EncodeToString(cipherText), nil
 }
 
+// Decrypt gets a `key` and `message` as the cipher and returns
+// the decrypted message using reverse AES algorithm.
 func Decrypt(key string, message string) (string, error) {
 	byteKey := []byte(key)
 
 	cipherText, err := base64.StdEncoding.DecodeString(message)
 	if err != nil {
-		return "", fmt.Errorf("could not base64 decode: %v", err)
+		return err.Error(), ErrBase64Decode
 	}
 
 	block, err := aes.NewCipher(byteKey)
 	if err != nil {
-		return "", fmt.Errorf("could not create new cipher: %v", err)
+		return err.Error(), ErrCipherCreation
 	}
 
 	if len(cipherText) < aes.BlockSize {
-		return "", fmt.Errorf("invalid ciphertext block size")
+		return "", ErrBlockSize
 	}
 
 	iv := cipherText[:aes.BlockSize]

@@ -16,18 +16,18 @@ After that you can use it like the following example:
 package main
 
 import (
-	"fmt"
+    "fmt"
 
-	"github.com/amirhnajafiz/encrypto"
+    "github.com/amirhnajafiz/encrypto"
 )
 
 func main() {
-	key := "0123456789abcdef" // must be of 16 bytes for this example to work
-	message := "Lorem ipsum dolor sit amet"
+    key := "0123456789abcdef" // must be of 16 bytes for this example to work
+    message := "Lorem ipsum dolor sit amet"
 
-	encrypted, _ := encrypto.Encrypt(key, message)
-	decrypted, _ := encrypto.Decrypt(key, encrypted)
+    encrypted, _ := encrypto.Encrypt(key, message)
+    decrypted, _ := encrypto.Decrypt(key, encrypted)
 
-	fmt.Println(key, message, encrypted, decrypted)
+    fmt.Println(key, message, encrypted, decrypted)
 }
 ```
