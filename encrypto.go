@@ -8,6 +8,8 @@ import (
 	"io"
 )
 
+// Encrypt gets a `key` and `message` and returns
+// the encrypted message using AES algorithm.
 func Encrypt(key string, message string) (string, error) {
 	byteKey := []byte(key)
 	byteMsg := []byte(message)
@@ -29,6 +31,8 @@ func Encrypt(key string, message string) (string, error) {
 	return base64.StdEncoding.EncodeToString(cipherText), nil
 }
 
+// Decrypt gets a `key` and `message` as the cipher and returns
+// the decrypted message using reverse AES algorithm.
 func Decrypt(key string, message string) (string, error) {
 	byteKey := []byte(key)
 
